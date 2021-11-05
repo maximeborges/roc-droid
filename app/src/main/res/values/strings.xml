@@ -18,6 +18,12 @@
     <string name="allow_mic_message">The app needs permission to record audio from your phone mic.</string>
     <string name="allow_mic_ok_message">Thanks! The sender will now start.</string>
 
+    <string name="source_port">Source (audio) port</string>
+    <string name="repair_port">Repair (FEC) port</string>
+
+    <string name="default_source_port">10001</string>
+    <string name="default_repair_port">10002</string>
+
     <string name="ok">OK</string>
 
     <string name="notification_channel_name">Sender and Receiver foreground service</string>

@@ -23,7 +23,11 @@ import java.net.NetworkInterface
 class MainActivity : AppCompatActivity() {
 
     private lateinit var requestPermissionLauncher: ActivityResultLauncher<String>
-    private lateinit var receiverIpEdit: EditText
+    private lateinit var receiverSourcePortEdit: EditText
+    private lateinit var receiverRepairPortEdit: EditText
+    private lateinit var targetSourcePortEdit: EditText
+    private lateinit var targetRepairPortEdit: EditText
+    private lateinit var targetIpEdit: EditText
     private lateinit var senderReceiverService: SenderReceiverService
 
     private val senderReceiverServiceConnection = object : ServiceConnection {
@@ -48,7 +52,11 @@ class MainActivity : AppCompatActivity() {
         findViewById<TextView>(R.id.receiverExplanation).text =
             Html.fromHtml(getText(R.string.receiver_expl).toString().format(getIpAddresses()), 0)
 
-        receiverIpEdit = findViewById(R.id.receiverIp)
+        receiverSourcePortEdit = findViewById(R.id.receiverSourcePort)
+        receiverRepairPortEdit = findViewById(R.id.receiverRepairPort)
+        targetSourcePortEdit = findViewById(R.id.targetSourcePort)
+        targetRepairPortEdit = findViewById(R.id.targetRepairPort)
+        targetIpEdit = findViewById(R.id.targetIp)
 
         requestPermissionLauncher =
             registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted: Boolean ->
@@ -83,7 +91,9 @@ class MainActivity : AppCompatActivity() {
         if (senderReceiverService.isReceiverAlive()) {
             senderReceiverService.stopReceiver()
         } else {
-            senderReceiverService.startReceiver()
+            val sourcePort = receiverSourcePortEdit.text.toString().toInt()
+            val repairPort = receiverRepairPortEdit.text.toString().toInt()
+            senderReceiverService.startReceiver(sourcePort, repairPort)
         }
     }
 
@@ -93,8 +103,10 @@ class MainActivity : AppCompatActivity() {
         } else {
             if (!askForRecordAudioPermission()) return
 
-            val ip = receiverIpEdit.text.toString()
-            senderReceiverService.startSender(ip)
+            val ip = targetIpEdit.text.toString()
+            val sourcePort = targetSourcePortEdit.text.toString().toInt()
+            val repairPort = targetRepairPortEdit.text.toString().toInt()
+            senderReceiverService.startSender(ip, sourcePort, repairPort)
         }
     }
 
@@ -158,6 +170,6 @@ class MainActivity : AppCompatActivity() {
             R.string.start_sender,
             R.string.stop_sender
         )
-        findViewById<EditText>(R.id.receiverIp).isEnabled = !alive
+        findViewById<EditText>(R.id.targetIp).isEnabled = !alive
     }
 }

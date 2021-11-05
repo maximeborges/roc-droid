@@ -15,9 +15,6 @@ import org.rocstreaming.roctoolkit.*
 private const val SAMPLE_RATE = 44100
 private const val BUFFER_SIZE = 100
 
-private const val RTP_PORT_SOURCE = 11001
-private const val RTP_PORT_REPAIR = 11002
-
 private const val CHANNEL_ID = "SenderReceiverService"
 private const val NOTIFICATION_ID = 1
 
@@ -151,7 +148,7 @@ class SenderReceiverService : Service() {
         return getString(R.string.notification_sender_and_receiver_not_running)//this shouldn't happen
     }
 
-    fun startSender(ip: String) {
+    fun startSender(ip: String, sourcePort: Int, repairPort: Int) {
         if (senderThread?.isAlive == true) return
 
         senderThread = Thread(Runnable {
@@ -174,11 +171,11 @@ class SenderReceiverService : Service() {
                     try {
                         sender.connect(
                             PortType.AUDIO_SOURCE, Protocol.RTP_RS8M_SOURCE,
-                            Address(Family.AUTO, ip, RTP_PORT_SOURCE)
+                            Address(Family.AUTO, ip, sourcePort)
                         )
                         sender.connect(
                             PortType.AUDIO_REPAIR, Protocol.RS8M_REPAIR,
-                            Address(Family.AUTO, ip, RTP_PORT_REPAIR)
+                            Address(Family.AUTO, ip, repairPort)
                         )
                     } catch (e: Exception) {
                         AlertDialog.Builder(this@SenderReceiverService).apply {
@@ -215,7 +212,7 @@ class SenderReceiverService : Service() {
         }
     }
 
-    fun startReceiver() {
+    fun startReceiver(sourcePort: Int, repairPort: Int) {
         if (receiverThread?.isAlive == true) return
 
         receiverThread = Thread(Runnable {
@@ -233,12 +230,12 @@ class SenderReceiverService : Service() {
                     receiver.bind(
                         PortType.AUDIO_SOURCE,
                         Protocol.RTP_RS8M_SOURCE,
-                        Address(Family.AUTO, "0.0.0.0", 10001)
+                        Address(Family.AUTO, "0.0.0.0", sourcePort)
                     )
                     receiver.bind(
                         PortType.AUDIO_REPAIR,
                         Protocol.RS8M_REPAIR,
-                        Address(Family.AUTO, "0.0.0.0", 10002)
+                        Address(Family.AUTO, "0.0.0.0", repairPort)
                     )
 
                     receiverChanged?.invoke(true)

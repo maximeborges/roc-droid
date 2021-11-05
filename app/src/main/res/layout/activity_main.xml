@@ -33,6 +33,51 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/headerReceiver" />
 
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/receiverSourcePortLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/source_port">
+
+        <EditText
+            android:id="@+id/receiverSourcePort"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:ems="10"
+            android:fontFamily="monospace"
+            android:inputType="number|phone"
+            android:autofillHints="@string/default_source_port"
+            android:singleLine="true"
+            android:text="@string/default_source_port"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/receiverExplanation" />
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/receiverRepairPortLabel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/repair_port">
+        <EditText
+            android:id="@+id/receiverRepairPort"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:ems="10"
+            android:fontFamily="monospace"
+            android:inputType="number|phone"
+            android:autofillHints="@string/default_repair_port"
+            android:singleLine="true"
+            android:text="@string/default_repair_port"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/receiverSourcePort" />
+    </android.support.design.widget.TextInputLayout>
+
     <Button
         android:id="@+id/startReceiver"
         android:layout_width="wrap_content"
@@ -43,7 +88,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/receiverExplanation" />
+        app:layout_constraintTop_toBottomOf="@+id/receiverRepairPortLabel" />
 
     <TextView
         android:id="@+id/headerSender"
@@ -72,8 +117,54 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/headerSender" />
 
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/targetSourcePortLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/source_port">
+
+        <EditText
+            android:id="@+id/targetSourcePort"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:ems="10"
+            android:fontFamily="monospace"
+            android:inputType="number|phone"
+            android:autofillHints="@string/default_source_port"
+            android:singleLine="true"
+            android:text="@string/default_source_port"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/senderExplanation" />
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/targetRepairPortLabel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/repair_port">
+        <EditText
+            android:id="@+id/targetRepairPort"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:ems="10"
+            android:fontFamily="monospace"
+            android:inputType="number|phone"
+            android:autofillHints="@string/default_repair_port"
+            android:singleLine="true"
+            android:text="@string/default_repair_port"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/targetSourcePort" />
+    </android.support.design.widget.TextInputLayout>
+
     <EditText
-        android:id="@+id/receiverIp"
+        android:id="@+id/targetIp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -87,7 +178,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/senderExplanation" />
+        app:layout_constraintTop_toBottomOf="@+id/targetRepairPortLabel" />
 
     <Button
         android:id="@+id/startSender"
@@ -99,7 +190,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/receiverIp"
+        app:layout_constraintTop_toBottomOf="@+id/targetIp"
         tools:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
